@@ -10,7 +10,7 @@ message FoodStat {
     map<string, int64> categoryCounts = 5;
     map<string, int64> allergenCounts = 6;
     map<string, int64> attributeCounts = 7;
-    map<int64, StringToInt> weekdayFoodCounts = 8;
+    map<string, StringToInt> weekdayFoodCounts = 8;
     map<string, StringToInt> foodWeekdayCounts = 9;
     int64 numUniqueFoods = 10;
     int64 totalFoodMealsServed = 11;
