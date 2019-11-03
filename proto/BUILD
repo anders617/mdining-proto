@@ -77,7 +77,7 @@ go_proto_library(
         "@io_bazel_rules_go//proto:go_grpc",
         "@grpc_ecosystem_grpc_gateway//protoc-gen-grpc-gateway:go_gen_grpc_gateway",
     ],
-    importpath = "github.com/mdining-proto/proto/mdiningapi",
+    importpath = "github.com/anders617/mdining-proto/proto/mdiningapi",
     protos = [
         ":mdiningapi_proto",
     ],
@@ -102,7 +102,7 @@ go_proto_library(
         "@io_bazel_rules_go//proto:go_grpc",
         "@grpc_ecosystem_grpc_gateway//protoc-gen-grpc-gateway:go_gen_grpc_gateway",
     ],
-    importpath = "github.com/mdining-proto/proto/mdining",
+    importpath = "github.com/anders617/mdining-proto/proto/mdining",
     protos = [
         ":dininghalls_proto",
         ":filterable_entries_proto",
