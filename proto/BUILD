@@ -54,7 +54,7 @@ proto_library(
         ":menu_proto",
         ":food_proto",
         ":foodstat_proto",
-        "@go_googleapis//google/api:annotations_proto",
+        "@com_googleapis_googleapis//google/api:annotations_proto",
     ],
 )
 
