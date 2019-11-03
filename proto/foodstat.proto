@@ -11,7 +11,7 @@ message FoodStat {
     map<string, int64> allergenCounts = 6;
     map<string, int64> attributeCounts = 7;
     map<int64, StringToInt> weekdayFoodCounts = 8;
-    map<string, IntToInt> foodWeekdayCounts = 9;
+    map<string, StringToInt> foodWeekdayCounts = 9;
     int64 numUniqueFoods = 10;
     int64 totalFoodMealsServed = 11;
     map<string, int64> diningHallMealsServed = 12;
@@ -19,8 +19,4 @@ message FoodStat {
 
 message StringToInt {
     map<string, int64> data = 1;
-}
-
-message IntToInt {
-    map<int64, int64> data = 1;
 }
