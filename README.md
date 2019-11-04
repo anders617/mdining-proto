@@ -1,6 +1,6 @@
 # mdining-proto
 
-[![Build Status](https://travis-ci.com/anders617/mdining-proto.svg?token=cMRcZeh9VAjpBXRsmo8P&branch=master)](https://travis-ci.com/anders617/mdining-proto)
+[![Build Status](https://travis-ci.org/anders617/mdining-proto.svg?branch=master)](https://travis-ci.org/anders617/mdining-proto)
 
 Proto definitions for use with the [michigan-dining-api](https://github.com/anders617/michigan-dining-api) service
 
