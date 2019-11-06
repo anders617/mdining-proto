@@ -9,6 +9,9 @@ The file [mdining.proto](https://github.com/anders617/mdining-proto/blob/master/
 The remaining files define the proto messages used by the service
 
 ## Language Support
+**[Bazel](#Bazel)** \
+**[Go](#Go)** \
+**[Javascript/Node.js](#Javascript/Node.js)**
 ### Bazel
 Add the following to your WORKSPACE file:
 ```python
@@ -66,6 +69,7 @@ func main() {
 
     if err != nil {
         fmt.Printf("Could not call GetDiningHalls: %s", err)
+        return
     }
     fmt.Printf("DiningHallsReply: %v\n", diningHallsReply)
 }
