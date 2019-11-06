@@ -40,22 +40,22 @@ In your Go code:
 package main
 
 import (
-	"context"
+    "context"
     "fmt"
 
-	pb "github.com/anders617/mdining-proto/proto/mdining"
-	"google.golang.org/grpc"
+    pb "github.com/anders617/mdining-proto/proto/mdining"
+    "google.golang.org/grpc"
 )
 
 func main() {
-	address := "michigan-dining-api.herokuapp.com:80"
-	fmt.Printf("Connecting to %s...", address)
-	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
-	if err != nil {
+    address := "michigan-dining-api.herokuapp.com:80"
+    fmt.Printf("Connecting to %s...", address)
+    conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+    if err != nil {
         fmt.Printf("Could not dial %s: %s", address, err)
         return
-	}
-	defer conn.Close()
+    }
+    defer conn.Close()
     fmt.Printf("Connected")
 
     // Create the MDiningClient
@@ -64,10 +64,10 @@ func main() {
     // Send a GetDiningHalls request
     diningHallsReply, err := client.GetDiningHalls(context.Background(), &pb.DiningHallsRequest{})
 
-	if err != nil {
-		fmt.Printf("Could not call GetDiningHalls: %s", err)
-	}
-	fmt.Printf("DiningHallsReply: %v\n", diningHallsReply)
+    if err != nil {
+        fmt.Printf("Could not call GetDiningHalls: %s", err)
+    }
+    fmt.Printf("DiningHallsReply: %v\n", diningHallsReply)
 }
 ```
 ### Javscript/Node.js
