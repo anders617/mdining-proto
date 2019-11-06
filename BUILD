@@ -13,3 +13,14 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
 # Buildifier formats BUILD files
 # bazel run //:buildifier
 buildifier(name = "buildifier")
+
+exports_files(["tsconfig.json"])
+
+
+load("@build_bazel_rules_nodejs//:index.bzl", "npm_package")
+
+npm_package(
+    name = "mdining_ts_proto_package",
+    srcs = ["package.json", ".npmignore"],
+    deps = ["//proto:mdining_ts_proto"],
+)

@@ -8,5 +8,7 @@
 # VSCode
 .vscode/
 
+node_modules/
+
 # Ignore bazel output directories
 bazel-*

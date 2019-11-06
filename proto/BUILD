@@ -1,5 +1,8 @@
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
+load("//rules:defs.bzl", "node_grpc_web_proto_library", "node_proto_library")
+load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
 
 proto_library(
     name = "dininghalls_proto",
@@ -125,3 +128,39 @@ go_proto_library(
         "@org_golang_google_grpc//status:go_default_library",
     ],
 )
+
+node_grpc_web_proto_library(
+    name = "mdining_grpcweb_proto",
+    deps = [
+        ":mdining_proto"
+    ],
+    mode = "grpcweb",
+)
+
+node_proto_library(
+    name = "mdining_node_proto",
+    tags = ["no-cache"],
+    deps = [
+        ":dininghalls_proto",
+        ":filterable_entries_proto",
+        ":items_proto",
+        ":menu_proto",
+        ":food_proto",
+        ":mdining_proto",
+        ":foodstat_proto",
+        "@com_googleapis_googleapis//google/api:annotations_proto",
+    ],
+)
+
+nodejs_binary(
+    name = "mdining_ts_proto",
+    visibility = ["//visibility:public"],
+    data = [
+        ":mdining_node_proto",
+        ":mdining_grpcweb_proto",
+        "index.js",
+    ],
+    entry_point = ":index.js",
+)
+
+
