@@ -13,6 +13,7 @@ message Menu {
     repeated Category category = 8;
     string diningHallName = 9;
     string diningHallMeal = 10;
+    string diningHallCampus = 11;
 }
 
 message Category {

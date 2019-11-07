@@ -16,6 +16,7 @@ message Food {
 message FoodDiningHallMatch {
     string name = 1;
     map<string, MealTime> mealTime = 2;
+    string campus = 3;
 }
 
 message MealTime {
