@@ -1,6 +1,6 @@
 {
   "name": "mdining-proto",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "proto/index.js",
   "repository": "https://github.com/anders617/mdining-proto.git",
   "author": "anders617 <anders617@gmail.com>",
