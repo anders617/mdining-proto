@@ -1,10 +1,6 @@
 # This rule was inspired by rules_closure`s implementation of
 # |closure_proto_library|, licensed under Apache 2.
 # https://github.com/bazelbuild/rules_closure/blob/3555e5ba61fdcc17157dd833eaf7d19b313b1bca/closure/protobuf/closure_proto_library.bzl
-load("@npm_bazel_typescript//internal:common/compilation.bzl", "COMMON_ATTRIBUTES", "DEPS_ASPECTS", "compile_ts", "ts_providers_dict_to_struct")
-load("@npm_bazel_typescript//internal:common/tsconfig.bzl", "create_tsconfig")
-load("@build_bazel_rules_nodejs//:providers.bzl", "NpmPackageInfo", "js_ecma_script_module_info", "js_named_module_info", "node_modules_aspect")
-load("@npm_bazel_typescript//internal:ts_config.bzl", "TsConfigInfo")
 load("@rules_proto//proto:defs.bzl", "ProtoInfo")
 
 ##
