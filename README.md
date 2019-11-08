@@ -83,7 +83,7 @@ func main() {
     fmt.Printf("DiningHallsReply: %v\n", diningHallsReply)
 }
 ```
-### Javscript/Node.js
+### Javascript/Node.js
 Download the [npm package](https://www.npmjs.com/package/mdining-proto) using [npm](https://www.npmjs.com/get-npm):
 ```shell
 npm install mdining-proto
