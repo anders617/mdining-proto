@@ -2,6 +2,11 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
 load("//rules:defs.bzl", "node_grpc_web_proto_library", "node_proto_library")
 load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+# load("@cc_rules//defs.bzl", "cc_proto_library", "cc_library")
+
+#########
+# Proto #
+#########
 
 proto_library(
     name = "dininghalls_proto",
@@ -73,6 +78,10 @@ proto_library(
     ],
 )
 
+##########
+# Golang #
+##########
+
 go_proto_library(
     name = "mdiningapi_go_proto",
     compilers = [
@@ -128,6 +137,10 @@ go_proto_library(
     ],
 )
 
+######################
+# Javascript/Node.js #
+######################
+
 node_grpc_web_proto_library(
     name = "mdining_grpcweb_proto",
     deps = [
@@ -163,3 +176,62 @@ nodejs_binary(
 )
 
 
+#######
+# C++ #
+#######
+
+cc_proto_library(
+    name = "dininghalls_cc_proto",
+    visibility = ["//visibility:public"],
+    deps = [":dininghalls_proto"]
+)
+
+cc_proto_library(
+    name = "filterable_entries_cc_proto",
+    visibility = ["//visibility:public"],
+    deps = [":filterable_entries_proto"],
+)
+
+cc_proto_library(
+    name = "items_cc_proto",
+    visibility = ["//visibility:public"],
+    deps = [":items_proto"],
+)
+
+cc_proto_library(
+    name = "mdining_cc_proto",
+    visibility = ["//visibility:public"],
+    deps = [":mdining_proto"],
+)
+
+cc_proto_library(
+    name = "menu_cc_proto",
+    visibility = ["//visibility:public"],
+    deps = [":menu_proto"],
+)
+
+cc_proto_library(
+    name = "food_cc_proto",
+    visibility = ["//visibility:public"],
+    deps = [":food_proto"],
+)
+
+cc_proto_library(
+    name = "foodstat_cc_proto",
+    visibility = ["//visibility:public"],
+    deps = [":foodstat_proto"],
+)
+
+cc_library(
+    name = "mdining_cc_library",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":dininghalls_cc_proto",
+        ":filterable_entries_cc_proto",
+        ":items_cc_proto",
+        ":mdining_cc_proto",
+        ":menu_cc_proto",
+        ":food_cc_proto",
+        ":foodstat_cc_proto",
+    ]
+)
