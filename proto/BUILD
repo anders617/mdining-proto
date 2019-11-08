@@ -2,6 +2,7 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
 load("//rules:defs.bzl", "node_grpc_web_proto_library", "node_proto_library")
 load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+load("@com_github_grpc_grpc//bazel:cc_grpc_library.bzl", "cc_grpc_library")
 # load("@cc_rules//defs.bzl", "cc_proto_library", "cc_library")
 
 #########
@@ -202,6 +203,14 @@ cc_proto_library(
     name = "mdining_cc_proto",
     visibility = ["//visibility:public"],
     deps = [":mdining_proto"],
+)
+
+cc_grpc_library(
+    name = "mdining_cc_grpc",
+    visibility = ["//visibility:public"],
+    srcs = [":mdining_proto"],
+    grpc_only = True,
+    deps = [":mdining_cc_proto"],
 )
 
 cc_proto_library(

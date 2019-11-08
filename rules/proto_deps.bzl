@@ -46,3 +46,12 @@ def proto_dependencies():
         strip_prefix = "gapic-generator-5aa30f3d6850c8ebc1092d17ef471aea27a81242",
         urls = ["https://github.com/googleapis/gapic-generator/archive/5aa30f3d6850c8ebc1092d17ef471aea27a81242.zip"]
     )
+
+    maybe(
+        http_archive,
+        name = "com_github_grpc_grpc",
+        urls = [
+            "https://github.com/grpc/grpc/archive/v1.22.0.tar.gz",
+        ],
+        strip_prefix = "grpc-1.22.0",
+    )

@@ -72,6 +72,12 @@ message FilterableEntriesReply { repeated FilterableEntry filterableEntries = 1;
 
 message AllRequest {}
 
+message AllReply {
+  repeated DiningHall diningHalls = 1;
+  map<string, Item> items = 2;
+  repeated FilterableEntry filterableEntries = 3;
+}
+
 message MenuRequest {
   string date = 1;
   string meal = 2;
@@ -89,10 +95,4 @@ message FoodRequest {
 
 message FoodReply {
   repeated Food foods = 1;
-}
-
-message AllReply {
-  repeated DiningHall diningHalls = 1;
-  map<string, Item> items = 2;
-  repeated FilterableEntry filterableEntries = 3;
 }
