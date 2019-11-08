@@ -16,11 +16,20 @@ The remaining files define the proto messages used by the service
 Add the following to your WORKSPACE file:
 ```python
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-git_repository(
+
+go_repository(
     name = "com_github_anders617_mdining_proto",
-    commit = "341cec62cda03b3341648f179d779eacaf93d904",
-    remote = "github.com/anders617/mdining-proto"
+    importpath = "github.com/anders617/mdining-proto",
+    sum = "h1:EIFfF2+iUhY/aRRxH3LqsDafKpDMp4tbEx7Wulb9th0=",
+    version = "v0.0.9",
 )
+
+load("@com_github_anders617_mdining_proto//rules:rule_deps.bzl", "rule_dependencies")
+rule_dependencies()
+load("@com_github_anders617_mdining_proto//rules:proto_deps.bzl", "proto_dependencies")
+proto_dependencies()
+load("@com_github_anders617_mdining_proto//rules:go_deps.bzl", "go_dependencies")
+go_dependencies()
 ```
 ### Go
 Go is supported through Bazel.
