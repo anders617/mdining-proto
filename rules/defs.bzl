@@ -67,6 +67,11 @@ def _generate_node_grpc_web_srcs(
         "import_style={}".format(import_style),
     ])
 
+    for src, path in zip(sources, paths):
+        src_prefix = src.path.replace(path[path.find("/")+1:] + src.path[src.path.rfind("/"):], "")
+        if len(src_prefix):
+            proto_include_paths += ["-I{}".format(src_prefix if src_prefix[-1] != '/' else src_prefix[:-1])]
+
     files = []
     for src, path in zip(sources, paths):
         extension = ".grpc.pb.js" if is_grpc else "_pb.js"
@@ -80,7 +85,11 @@ def _generate_node_grpc_web_srcs(
         print(js.path)
         print(bin_dir)
         files.append(js)
-        args = ["--proto_path={}".format(src.path[:-1-len(_proto_path(src))]),]
+        print(path[path.find("/"):])
+        print(path[path.find("/"):] + src.path[src.path.rfind("/"):])
+        src_prefix = src.path.replace(path[path.find("/")+1:] + src.path[src.path.rfind("/"):], "")
+        args = ["--proto_path={}".format(src_prefix if len(src_prefix) else src.path[:-1-len(_proto_path(src))]),]
+        # args = ["--proto_path={}".format(src.path[:-1-len(_proto_path(src))]),]
         args += proto_include_paths
         if is_grpc:
             args += [
@@ -138,14 +147,18 @@ def _node_proto_library_impl(ctx):
     #     for i in dep[ProtoInfo].transitive_imports.to_list():
     #         deps.append(_proto_path(i))
     # print(deps)
+    print(direct_sources)
     srcs = []
-    for src_list in direct_sources:
-        for src in src_list:
-            if src not in srcs:
-                srcs.append(src)
-                proto_path = _proto_path(src)
-                proto_path = proto_path[:proto_path.rfind("/")]
-                paths.append(ctx.label.package + "/" + proto_path)
+    if not ctx.attr._is_grpc:
+        for src_list in direct_sources:
+            for src in src_list:
+                if src not in srcs:
+                    srcs.append(src)
+                    proto_path = _proto_path(src)
+                    proto_path = proto_path[:proto_path.rfind("/")]
+                    # Special logic for descriptor protobuf
+                    paths.append(ctx.label.package + "/" + proto_path.replace("_virtual_imports/descriptor_proto/", ""))
+                    print(ctx.label.package, proto_path.replace("_virtual_imports/descriptor_proto/", ""))
     if not ctx.attr._is_grpc:
         for src_list in transitive_sources:
             for src in src_list:
@@ -153,7 +166,8 @@ def _node_proto_library_impl(ctx):
                     srcs.append(src)
                     proto_path = _proto_path(src)
                     proto_path = proto_path[:proto_path.rfind("/")]
-                    paths.append(ctx.label.package + "/" + proto_path)
+                    print(ctx.label.package, proto_path.replace("_virtual_imports/descriptor_proto/", ""))
+                    paths.append(ctx.label.package + "/" + proto_path.replace("_virtual_imports/descriptor_proto/", ""))
     print(srcs)
     srcs = _generate_node_grpc_web_srcs(
         ctx.attr._is_grpc,

@@ -145,7 +145,7 @@ go_proto_library(
 node_grpc_web_proto_library(
     name = "mdining_grpcweb_proto",
     deps = [
-        ":mdining_proto"
+        ":mdining_proto",
     ],
     mode = "grpcweb",
 )
@@ -161,7 +161,6 @@ node_proto_library(
         ":food_proto",
         ":mdining_proto",
         ":foodstat_proto",
-        "@com_googleapis_googleapis//google/api:annotations_proto",
     ],
 )
 
