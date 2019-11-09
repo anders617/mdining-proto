@@ -48,10 +48,17 @@ def proto_dependencies():
     )
 
     maybe(
-        http_archive,
+        git_repository,
         name = "com_github_grpc_grpc",
-        urls = [
-            "https://github.com/grpc/grpc/archive/v1.22.0.tar.gz",
-        ],
-        strip_prefix = "grpc-1.22.0",
+        commit = "bd0aa9a600a13cc988c6ebfd12deab8d1abcf171",
+        remote = "https://github.com/grpc/grpc",
     )
+
+    # maybe(
+    #     http_archive,
+    #     name = "com_github_grpc_grpc",
+    #     urls = [
+    #         "https://github.com/grpc/grpc/archive/v1.22.0.tar.gz",
+    #     ],
+    #     strip_prefix = "grpc-1.22.0",
+    # )

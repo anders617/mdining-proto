@@ -1,5 +1,5 @@
 
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_binary")
 
 cc_binary(
     name = "client_cpp",
