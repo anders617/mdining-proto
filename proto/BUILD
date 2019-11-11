@@ -52,6 +52,12 @@ proto_library(
 )
 
 proto_library(
+    name = "hearts_proto",
+    srcs = ["hearts.proto"],
+    visibility = ["//visibility:public"],
+)
+
+proto_library(
     name = "mdining_proto",
     srcs = ["mdining.proto"],
     visibility = ["//visibility:public"],
@@ -62,6 +68,7 @@ proto_library(
         ":menu_proto",
         ":food_proto",
         ":foodstat_proto",
+        ":hearts_proto",
         "@com_googleapis_googleapis//google/api:annotations_proto",
     ],
 )
@@ -123,6 +130,7 @@ go_proto_library(
         ":menu_proto",
         ":food_proto",
         ":foodstat_proto",
+        ":hearts_proto",
     ],
     visibility = ["//visibility:public"],
     deps = [
@@ -146,6 +154,7 @@ node_grpc_web_proto_library(
     name = "mdining_grpcweb_proto",
     deps = [
         ":mdining_proto",
+        ":mdining_node_proto",
     ],
     mode = "grpcweb",
 )
@@ -230,6 +239,12 @@ cc_proto_library(
     deps = [":foodstat_proto"],
 )
 
+cc_proto_library(
+    name = "hearts_cc_proto",
+    visibility = ["//visibility:public"],
+    deps = [":hearts_proto"],
+)
+
 cc_library(
     name = "mdining_cc_library",
     visibility = ["//visibility:public"],
@@ -241,5 +256,6 @@ cc_library(
         ":menu_cc_proto",
         ":food_cc_proto",
         ":foodstat_cc_proto",
+        ":hearts_cc_proto",
     ]
 )

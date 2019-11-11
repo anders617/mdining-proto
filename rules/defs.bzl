@@ -49,7 +49,8 @@ def _generate_node_grpc_web_srcs(
         mode,
         sources,
         transitive_sources):
-    all_sources = [src for src in sources] + [src for src in transitive_sources.to_list()]
+    all_sources = [src for src in sources] + [src for src in transitive_sources]
+    print(all_sources)
     proto_include_paths = [
         "-I%s" % p
         for p in _proto_include_paths(
@@ -73,7 +74,12 @@ def _generate_node_grpc_web_srcs(
             proto_include_paths += ["-I{}".format(src_prefix if src_prefix[-1] != '/' else src_prefix[:-1])]
 
     files = []
+    count = 0
     for src, path in zip(sources, paths):
+        if is_grpc and count > 0:
+            # Only compile first proto for grpc
+            break
+        count += 1
         extension = ".grpc.pb.js" if is_grpc else "_pb.js"
         name = "{}{}".format(
             ".".join(src.path.split("/")[-1].split(".")[:-1]),
@@ -140,6 +146,9 @@ def _node_proto_library_impl(ctx):
         # if dep.label.package != ctx.label.package:
         #     continue
         print(dep.label.package)
+        if ProtoInfo not in dep:
+            print(dep)
+            continue
         # paths.append(ctx.label.package + "/" + dep.label.package)
         direct_sources.append(dep[ProtoInfo].direct_sources)
         transitive_sources.append(dep[ProtoInfo].transitive_imports.to_list())
@@ -149,25 +158,30 @@ def _node_proto_library_impl(ctx):
     # print(deps)
     print(direct_sources)
     srcs = []
-    if not ctx.attr._is_grpc:
-        for src_list in direct_sources:
-            for src in src_list:
-                if src not in srcs:
-                    srcs.append(src)
-                    proto_path = _proto_path(src)
-                    proto_path = proto_path[:proto_path.rfind("/")]
-                    # Special logic for descriptor protobuf
-                    paths.append(ctx.label.package + "/" + proto_path.replace("_virtual_imports/descriptor_proto/", ""))
-                    print(ctx.label.package, proto_path.replace("_virtual_imports/descriptor_proto/", ""))
-    if not ctx.attr._is_grpc:
-        for src_list in transitive_sources:
-            for src in src_list:
-                if src not in srcs:
-                    srcs.append(src)
-                    proto_path = _proto_path(src)
-                    proto_path = proto_path[:proto_path.rfind("/")]
-                    print(ctx.label.package, proto_path.replace("_virtual_imports/descriptor_proto/", ""))
-                    paths.append(ctx.label.package + "/" + proto_path.replace("_virtual_imports/descriptor_proto/", ""))
+    # if ctx.attr._is_grpc:
+    #     srcs = direct_sources
+    # if not ctx.attr._is_grpc:
+    for src_list in direct_sources:
+        for src in src_list:
+            if src not in srcs:
+                srcs.append(src)
+                proto_path = _proto_path(src)
+                proto_path = proto_path[:proto_path.rfind("/")]
+                # Special logic for descriptor protobuf
+                paths.append(ctx.label.package + "/" + proto_path.replace("_virtual_imports/descriptor_proto/", ""))
+                print(ctx.label.package, proto_path.replace("_virtual_imports/descriptor_proto/", ""))
+    all_transitive_sources = []
+    # if not ctx.attr/._is_grpc:
+    for src_list in transitive_sources:
+        for src in src_list:
+            if src not in srcs:
+                # if not ctx.attr._is_grpc:
+                srcs.append(src)
+                proto_path = _proto_path(src)
+                proto_path = proto_path[:proto_path.rfind("/")]
+                print(ctx.label.package, proto_path.replace("_virtual_imports/descriptor_proto/", ""))
+                paths.append(ctx.label.package + "/" + proto_path.replace("_virtual_imports/descriptor_proto/", ""))
+                all_transitive_sources.append(src)
     print(srcs)
     srcs = _generate_node_grpc_web_srcs(
         ctx.attr._is_grpc,
@@ -179,7 +193,7 @@ def _node_proto_library_impl(ctx):
         import_style = ctx.attr.import_style,
         mode = ctx.attr.mode,
         sources = srcs,
-        transitive_sources = dep[ProtoInfo].transitive_imports,
+        transitive_sources = all_transitive_sources,
     )
 
     deps = [
@@ -254,7 +268,8 @@ node_grpc_web_proto_library = rule(
     attrs = dict({
         "deps": attr.label_list(
             mandatory = True,
-            providers = [ProtoInfo],
+            providers = [],
+            # providers = [ProtoInfo],
         ),
         "import_style": attr.string(
             default = "commonjs",

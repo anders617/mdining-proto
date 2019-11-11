@@ -9,6 +9,7 @@ import "proto/filterableentries.proto";
 import "proto/menu.proto";
 import "proto/food.proto";
 import "proto/foodstat.proto";
+import "proto/hearts.proto";
 
 service MDining {
   rpc GetDiningHalls(DiningHallsRequest) returns (DiningHallsReply) {
@@ -53,6 +54,21 @@ service MDining {
       get: "/v1/stats"
     };
   }
+
+  rpc StreamHearts(HeartsRequest) returns (stream HeartsReply) {
+  }
+
+  rpc GetHearts(HeartsRequest) returns (HeartsReply) {
+    option (google.api.http) = {
+      get: "/v1/hearts"
+    };
+  }
+
+  rpc AddHeart(HeartsRequest) returns (HeartsReply) {
+    option (google.api.http) = {
+      post: "/v1/hearts"
+    };
+  }
 }
 
 message FoodStatsRequest {}
@@ -95,4 +111,12 @@ message FoodRequest {
 
 message FoodReply {
   repeated Food foods = 1;
+}
+
+message HeartsRequest {
+  repeated string keys = 1;
+}
+
+message HeartsReply {
+  repeated HeartCount counts = 1;
 }
