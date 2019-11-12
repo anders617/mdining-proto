@@ -156,7 +156,7 @@ node_grpc_web_proto_library(
         ":mdining_proto",
         ":mdining_node_proto",
     ],
-    mode = "grpcweb",
+    mode = "grpcwebtext",
 )
 
 node_proto_library(
