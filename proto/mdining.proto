@@ -55,6 +55,12 @@ service MDining {
     };
   }
 
+  rpc GetSummaryStats(SummaryStatsRequest) returns (SummaryStatsReply) {
+    option (google.api.http) = {
+      get: "/v1/summarystats"
+    };
+  }
+
   rpc StreamHearts(HeartsRequest) returns (stream HeartsReply) {
   }
 
@@ -73,6 +79,14 @@ service MDining {
 
 message FoodStatsRequest {}
 message FoodStatsReply { repeated FoodStat foodStats = 1; }
+
+message SummaryStatsRequest {
+  string startDate = 1;
+  string endDate = 2;
+}
+message SummaryStatsReply {
+  SummaryStats stats = 1;
+}
 
 message DiningHallsRequest {}
 

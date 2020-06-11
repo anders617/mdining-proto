@@ -17,6 +17,19 @@ message FoodStat {
     map<string, int64> diningHallMealsServed = 12;
 }
 
+message CountArray {
+    repeated int64 counts = 1;
+}
+
+message SummaryStats {
+    repeated string dates = 1;
+    repeated int64 numUniqueFoods = 2;
+    repeated int64 totalFoodMealsServre = 3;
+    map<string, CountArray> allergenCounts = 4;
+    map<string, CountArray> attributeCounts = 5;
+    map<string, StringToInt> latestWeekdayFoodCounts = 6;
+}
+
 message StringToInt {
     map<string, int64> data = 1;
 }
