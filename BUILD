@@ -22,6 +22,6 @@ load("@build_bazel_rules_nodejs//:index.bzl", "npm_package")
 # To build and publish the package: bazel run //:mdining_ts_proto_package.publish
 npm_package(
     name = "mdining_ts_proto_package",
-    srcs = ["package.json", ".npmignore"],
+    srcs = ["package.json", ".npmignore", "README.md"],
     deps = ["//proto:mdining_ts_proto"],
 )

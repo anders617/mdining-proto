@@ -102,3 +102,10 @@ client.getDiningHalls(new DiningHallsRequest())
     .then((diningHalls) => console.log(diningHalls))
     .catch((err) => console.log(err));
 ```
+
+# Development
+
+Run the following command to build and publish the npm package
+```shell
+bazel run //:mdining_ts_proto_package.publish
+```

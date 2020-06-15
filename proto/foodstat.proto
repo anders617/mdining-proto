@@ -27,7 +27,8 @@ message SummaryStats {
     repeated int64 totalFoodMealsServed = 3;
     map<string, CountArray> allergenCounts = 4;
     map<string, CountArray> attributeCounts = 5;
-    map<string, StringToInt> latestWeekdayFoodCounts = 6;
+    repeated string foods = 6;
+    map<string, CountArray> latestWeekdayFoodCounts = 7;
 }
 
 message StringToInt {
