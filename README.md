@@ -20,8 +20,8 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 go_repository(
     name = "com_github_anders617_mdining_proto",
     importpath = "github.com/anders617/mdining-proto",
-    sum = "h1:EIFfF2+iUhY/aRRxH3LqsDafKpDMp4tbEx7Wulb9th0=",
-    version = "v0.0.9",
+    sum = "h1:EqFtsULZ1MWoAAJKotZvMwR351syYg9eiDdBm1pBf78=",
+    version = "v0.2.2",
 )
 
 load("@com_github_anders617_mdining_proto//rules:rule_deps.bzl", "rule_dependencies")
