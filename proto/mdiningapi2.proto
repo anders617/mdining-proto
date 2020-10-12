@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+// These are protos for the mdining rest API (updated from original mdiningapi)
+package mdiningapi2;
+
+import "proto/dininghalls.proto";
+
+// /dining/locations
+message GetLocationsReply {
+    repeated Location location = 1;
+}
+
+message Location {
+  int32 officialbuildingid = 1;
+  float lat = 2;
+  float lng = 3;
+  bool restricted = 4;
+  string buildingpreferredname = 5;
+  string campus = 6;
+  string displayName = 7;
+  string image = 8;
+  string name = 9;
+  string type = 10;
+  Contact contact = 11;
+  mdining.DiningHall.Building.Address address = 12;
+
+  message Contact {
+      string phone = 1;
+      string email = 2;
+  }
+}
+
+// /dining/meal-hours?location=Bursley%20Dining%20Hall&date=13-10-2020
+message GetMealHoursReply {
+    repeated Hours hours = 1;
+    repeated Meal meal = 2;
+}
+
+message Hours {
+    string event_day_end = 1;
+    string event_day_start = 2;
+    string event_maplink = 3;
+    string event_time_end = 4;
+    string event_time_start = 5;
+    string event_title = 6;
+}
+
+message Meal {
+    bool hasMenu = 1;
+    string description = 2;
+    string name = 3;
+}
+
+// /dining/menu?location=Bursley%20Dining%20Hall&date=13-10-2020&meal=BREAKFAST
+message GetMenuReply {
+    Menu menu = 1;
+}
+
+message Menu {
+    string name = 1;
+    repeated Category category = 2;
+}
+
+message Category {
+    string name = 1;
+    repeated MenuItem menuItem = 2;
+}
+
+message MenuItem {
+    string name = 1;
+    repeated string attribute = 2;
+    repeated string allergens = 3;
+    repeated ItemSizes itemSizes = 4;
+}
+
+message ItemSizes {
+    string portionSize = 1;
+    string servingSize = 2;
+    repeated NutritionalInfo nutrition = 3;
+}
+
+message NutritionalInfo {
+    string name = 1;
+    string value = 2;
+    int32 percentDailyValue = 4;
+}
+
+// /dining/capacity
+message GetCapacityReply {
+    repeated Capacity capacity = 1;
+}
+
+message Capacity {
+    string capacity_count = 1;
+    string name = 2;
+    string patronflow = 3;
+    string period = 4;
+    string timelaps = 5;
+    string total = 6;
+}

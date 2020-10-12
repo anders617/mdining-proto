@@ -86,9 +86,47 @@ proto_library(
     ],
 )
 
+proto_library(
+    name = "mdiningapi2_proto",
+    srcs = ["mdiningapi2.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":dininghalls_proto",
+        ":filterable_entries_proto",
+        ":items_proto",
+        ":menu_proto",
+        ":food_proto",
+    ],
+)
+
 ##########
 # Golang #
 ##########
+
+go_proto_library(
+    name = "mdiningapi2_go_proto",
+    compilers = [
+        "@io_bazel_rules_go//proto:go_grpc",
+        "@grpc_ecosystem_grpc_gateway//protoc-gen-grpc-gateway:go_gen_grpc_gateway",
+    ],
+    importpath = "github.com/anders617/mdining-proto/proto/mdiningapi2",
+    protos = [
+        ":mdiningapi2_proto",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":mdining_go_proto",
+        "@com_github_golang_protobuf//descriptor:go_default_library",
+        "@com_github_golang_protobuf//proto:go_default_library",
+        "@grpc_ecosystem_grpc_gateway//runtime:go_default_library",
+        "@grpc_ecosystem_grpc_gateway//utilities:go_default_library",
+        "@org_golang_google_genproto//googleapis/api/annotations:go_default_library",
+        "@org_golang_google_grpc//:go_default_library",
+        "@org_golang_google_grpc//codes:go_default_library",
+        "@org_golang_google_grpc//grpclog:go_default_library",
+        "@org_golang_google_grpc//status:go_default_library",
+    ],
+)
 
 go_proto_library(
     name = "mdiningapi_go_proto",
