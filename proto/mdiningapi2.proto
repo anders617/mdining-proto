@@ -70,12 +70,12 @@ message MenuItem {
     string name = 1;
     repeated string attribute = 2;
     repeated string allergens = 3;
-    repeated ItemSizes itemSizes = 4;
+    ItemSizes itemSizes = 4;
 }
 
 message ItemSizes {
-    string portionSize = 1;
-    string servingSize = 2;
+    string portion_size = 1;
+    string serving_size = 2;
     repeated NutritionalInfo nutrition = 3;
 }
 
